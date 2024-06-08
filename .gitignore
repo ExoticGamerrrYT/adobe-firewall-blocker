@@ -1,2 +1,5 @@
 .venv/
 src/__pycache__/
+src/Adobe Firewall Blocker.spec
+src/dist
+src/build

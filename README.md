@@ -4,7 +4,11 @@ This is a simple Python script that I've done just because Adobe doesn't let us 
 
 ## :grey_question: How to use?
 
+Download from the releases page the .exe and excute it.
 
+**_BE CAREFUL WITH THE ANTIVIRUS_**
+
+If it does not work disable antivirus.
 
 ## :hammer: How to contribute?
 

@@ -1,3 +1,4 @@
+# While in src: pyinstaller --uac-admin -F --name "Adobe Firewall Blocker" main.py
 import subprocess
 import colorama
 import searcher
@@ -85,4 +86,8 @@ while True:
     if success:  # Here we use the succes with the bool return of block_program()
         print(colorama.Fore.GREEN + "Successfully Blocked!")
         input(colorama.Fore.WHITE + "Press any key to exit...")
-    break
+        break
+    else:
+        print(colorama.Fore.RED + "Try running as admin")
+        input(colorama.Fore.WHITE + "Press any key to exit...")
+        break
