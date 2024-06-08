@@ -1,17 +1,19 @@
 import subprocess
 import colorama
+import searcher
 
-colorama.init()
+colorama.init()  # Color!
 
-PHOTOSHOP_PATH = r"C:\Program Files\Adobe\Adobe Photoshop 2024\Photoshop.exe"
-PREMIERE_PATH = r"C:\Program Files\Adobe\Adobe Premiere Pro 2024\Adobe Premiere Pro.exe"
-ENCODER_PATH = (
-    r"C:\Program Files\Adobe\Adobe Media Encoder 2024\Adobe Media Encoder.exe"
-)
-AUDITION_PATH = r"C:\Program Files\Adobe\Adobe Audition 2024\Adobe Audition.exe"
+# Main path
+ADOBE_PATH = r"C:\Program Files\Adobe"
+# Get the paths of adobe programs (given in alphabetical order)
+program_paths = searcher.buscar_programas_adobe(ADOBE_PATH)
 
 
 def add_inbound(path, program):
+    """
+    Function with a command to add to the firewall inbound rules the program
+    """
     add_inbound_rule = f'netsh advfirewall firewall add rule name="Block Inbound {program}" dir=in action=block program="{path}" enable=yes'
     try:
         subprocess.run(add_inbound_rule, shell=True, check=True)
@@ -23,6 +25,9 @@ def add_inbound(path, program):
 
 
 def add_outbound(path, program):
+    """
+    Function with a command to add to the firewall outbound rules the program
+    """
     add_outbound_rule = f'netsh advfirewall firewall add rule name="Block Outbound {program}" dir=out action=block program="{path}" enable=yes'
     try:
         subprocess.run(add_outbound_rule, shell=True, check=True)
@@ -34,6 +39,9 @@ def add_outbound(path, program):
 
 
 def block_program(path, program):
+    """
+    Function to execute both functions above and get a bool
+    """
     inbound_success = add_inbound(path, program)
     outbound_success = add_outbound(path, program)
     return inbound_success and outbound_success
@@ -49,30 +57,32 @@ print(
 )
 
 while True:
+    #  While loop for the options
     option = str(input("Your option: "))
     success = False
 
     if option == "1":
-        success = block_program(PHOTOSHOP_PATH, "Photoshop")
+        success = block_program(program_paths[2], "Photoshop")
     elif option == "2":
-        success = block_program(PREMIERE_PATH, "Adobe Premiere Pro")
+        success = block_program(program_paths[3], "Adobe Premiere Pro")
     elif option == "3":
-        success = block_program(ENCODER_PATH, "Adobe Media Encoder")
+        success = block_program(program_paths[1], "Adobe Media Encoder")
     elif option == "4":
-        success = block_program(AUDITION_PATH, "Adobe Audition")
+        success = block_program(program_paths[0], "Adobe Audition")
     elif option == "5":
         success = all(
             [
-                block_program(PHOTOSHOP_PATH, "Photoshop"),
-                block_program(PREMIERE_PATH, "Adobe Premiere Pro"),
-                block_program(ENCODER_PATH, "Adobe Media Encoder"),
-                block_program(AUDITION_PATH, "Adobe Audition"),
+                block_program(program_paths[2], "Photoshop"),
+                block_program(program_paths[3], "Adobe Premiere Pro"),
+                block_program(program_paths[1], "Adobe Media Encoder"),
+                block_program(program_paths[0], "Adobe Audition"),
             ]
         )
     else:
         print("Enter one of the options from above please!")
         continue
 
-    if success:
+    if success:  # Here we use the succes with the bool return of block_program()
         print(colorama.Fore.GREEN + "Successfully Blocked!")
+        input(colorama.Fore.WHITE + "Press any key to exit...")
     break
