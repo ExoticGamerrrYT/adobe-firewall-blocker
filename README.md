@@ -10,6 +10,10 @@ Download from the releases page the .exe and excute it.
 
 If it does not work disable antivirus. If you get an alert it is because the executable is not signed.
 
+## :heavy_check_mark: To-do!
+
+- [ ] Add support for more programs.
+
 ## :hammer: How to contribute?
 
 > _**Remember to contribute according the [LICENSE](LICENSE)**_.
