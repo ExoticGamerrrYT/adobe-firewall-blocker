@@ -8,7 +8,7 @@ Download from the releases page the .exe and excute it.
 
 **_BE CAREFUL WITH THE ANTIVIRUS_**
 
-If it does not work disable antivirus.
+If it does not work disable antivirus. If you get an alert it is because the executable is not signed.
 
 ## :hammer: How to contribute?
 
